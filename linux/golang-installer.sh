@@ -5,31 +5,28 @@ if [[ "$command" == "install" ]] || [[ "$command" == "update" ]]
 then
 
     echo "############## ${command^} ##############"
-    # https://pkg.go.dev/golang.org/x/tools/cmd/getgo#section-readme
 
-    # Remove any existing golang package
-    rm -rf /usr/local/go
+    VERSION=$(curl https://go.dev/VERSION?m=text)
 
-    curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer
+    wget "https://dl.google.com/go/$VERSION.linux-amd64.tar.gz"
 
-    touch /root/.bash_profile
-    echo "############ COMPLETE ############"
-    ############### MANUAL WAY ####################
-    # VERSION=1.20.5
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${VERSION}.linux-amd64.tar.gz
 
-    # # Download
-    # wget "https://dl.google.com/go/$(curl https://go.dev/VERSION?m=text).linux-amd64.tar.gz"
+    # WSL2
+    echo export GOROOT="/usr/local/go" >> ~/.bashrc
+    echo export GOPATH="\$HOME/go" >> ~/.bashrc
+    echo export PATH="\$GOPATH/bin:\$GOROOT/bin:\$PATH" >> ~/.bashrc
 
-    # Move
-    # rm -rf /usr/local/go && tar -C /usr/local -xzf go${VERSION}.linux-amd64.tar.gz
-
-    # # Set $PATH in .bashrc
+    
+    # Linux
     # echo export PATH="$PATH:/usr/local/go/bin" >> ~/.bashrc
 
-    # # Delete
-    # rm go${VERSION}.linux-amd64.tar.gz
+    bash
 
-    ############### MANUAL WAY ####################
+    # Delete
+    rm go*.linux-amd64.tar.gz*
+
+    echo "############ COMPLETE ############"
 else
     echo "No action for '$1'"
 fi

@@ -1,0 +1,231 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "version": 2,
+    "final_space": true,
+    "console_title_template": "{{ .Shell }} in {{ .Folder }}",
+    "blocks": [
+      {
+        "type": "prompt",
+        "alignment": "left",
+        "segments": [
+          {
+            "type": "session",
+            "style": "diamond",
+            "foreground": "#ffffff",
+            "background": "#ff479c",
+            "leading_diamond": "\ue0b6",
+            "trailing_diamond": "\ue0b0",
+            "template": " {{ if .SSHSession }}\ueba9 {{ end }}{{ .UserName }} ",
+            "properties": {
+              "display_host": false
+            }
+          },
+          {
+            "type": "path",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#87ff00",
+            "template": " \uf74a  {{ .Path }} ",
+            "properties": {
+              "folder_separator_icon": " \ue0b1 ",
+              "home_icon": "~",
+              "style": "folder"
+            }
+          },
+          {
+            "type": "git",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#fffb38",
+            "background_templates": [
+              "{{ if or (.Working.Changed) (.Staging.Changed) }}#ff9248{{ end }}",
+              "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#f26d50{{ end }}",
+              "{{ if gt .Ahead 0 }}#f17c37{{ end }}",
+              "{{ if gt .Behind 0 }}#89d1dc{{ end }}"
+            ],
+            "template": " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+            "properties": {
+              "fetch_stash_count": true,
+              "fetch_upstream_icon": true
+            }
+          },
+          {
+            "type": "node",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#6CA35E",
+            "template": " \uf898 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+            "properties": {
+              "fetch_version": true
+            }
+          },
+          {
+            "type": "go",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#8ED1F7",
+            "template": " \ue626 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+            "properties": {
+              "fetch_version": true
+            }
+          },
+          {
+            "type": "julia",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#4063D8",
+            "template": " \ue624 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+            "properties": {
+              "fetch_version": true
+            }
+          },
+          {
+            "type": "python",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#FFDE57",
+            "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+            "properties": {
+              "display_mode": "files",
+              "fetch_version": true,
+              "fetch_virtual_env": true
+            }
+          },
+          {
+            "type": "ruby",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#AE1401",
+            "template": " \ue791 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+            "properties": {
+              "display_mode": "files",
+              "fetch_version": true
+            }
+          },
+          {
+            "type": "azfunc",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background": "#FEAC19",
+            "template": " \uf0e7{{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+            "properties": {
+              "display_mode": "files",
+              "fetch_version": false
+            }
+          },
+          {
+            "type": "aws",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#193549",
+            "background_templates": [
+              "{{if contains \"default\" .Profile}}#FFA400{{end}}",
+              "{{if contains \"jan\" .Profile}}#f1184c{{end}}"
+            ],
+            "template": " \ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }} ",
+            "properties": {
+              "display_default": false
+            }
+          },
+          {
+            "type": "root",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b0",
+            "foreground": "#111111",
+            "background": "#ffff66",
+            "template": " \uf0e7 ",
+            "properties": {
+              "root_icon": "\uf0ad"
+            }
+          },
+          {
+            "type": "executiontime",
+            "style": "plain",
+            "foreground": "#ffffff",
+            "background": "#83769c",
+            "template": "<transparent>\ue0b0</> \ufa1e{{ .FormattedMs }}\u2800",
+            "properties": {
+              "always_enabled": true
+            }
+          },
+          {
+            "type": "exit",
+            "style": "diamond",
+            "foreground": "#ffffff",
+            "background": "#2e9599",
+            "background_templates": [
+              "{{ if gt .Code 0 }} #f1184c {{ end }}"
+            ],
+            "trailing_diamond": "\ue0b4",
+            "template": "<#83769c>\ue0b0</> \ue23a {{ if gt .Code 0 }}\uf00d{{ else }}\uf42e{{ end }} ",
+            "properties": {
+              "always_enabled": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "rprompt",
+        "segments": [
+          {
+            "type": "shell",
+            "style": "plain",
+            "foreground": "#ffffff",
+            "background": "#0077c2",
+            "template": "<#0077c2,transparent>\ue0b6</> \uf489 {{ .Name }} <transparent,#0077c2>\ue0b2</>"
+          },
+          {
+            "type": "ytm",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b2",
+            "invert_powerline": true,
+            "foreground": "#111111",
+            "background": "#1BD760",
+            "template": " \uf167 {{ .Icon }}{{ if ne .Status \"stopped\" }}{{ .Artist }} - {{ .Track }}{{ end }} ",
+            "properties": {
+              "paused_icon": "\uf04c ",
+              "playing_icon": "\uf04b "
+            }
+          },
+          {
+            "type": "battery",
+            "style": "powerline",
+            "powerline_symbol": "\ue0b2",
+            "invert_powerline": true,
+            "foreground": "#193549",
+            "background": "#f36943",
+            "background_templates": [
+              "{{ if eq \"Full\" .State.String }}#4caf50{{ end }}",
+              "{{ if eq \"Charging\" .State.String }}#40c4ff{{ end }}",
+              "{{ if eq \"Discharging\" .State.String }}#ff5722{{ end }}"
+            ],
+            "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 ",
+            "properties": {
+              "charged_icon": "\ue22f ",
+              "charging_icon": "\ue234 ",
+              "discharging_icon": "\ue231 "
+            }
+          },
+          {
+            "type": "time",
+            "style": "diamond",
+            "invert_powerline": true,
+            "foreground": "#111111",
+            "background": "#2e9599",
+            "leading_diamond": "\ue0b2",
+            "trailing_diamond": "\ue0b4",
+            "template": " {{ .CurrentDate | date .Format }} "
+          }
+        ]
+      }
+    ]
+  }
+  
