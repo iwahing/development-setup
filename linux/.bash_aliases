@@ -40,6 +40,7 @@ alias df='df -H'
 alias du='du -ch'
 
 # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+# https://github.com/vikaskyadav/awesome-bash-alias
 
 # TODO
 ## SUPPORT ALIAS FOR DIFFERENT OS
