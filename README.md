@@ -11,3 +11,7 @@ sudo apt update && sudo apt upgrade
     - sudo apt install openssh-client
 3. generate ssh keys 
     - ssh-keygen -t ed25519 -C "isaacjohnwahing@gmail.com"
+
+# TODO
+# Add code techniques
+# To look at https://github.com/ArjanCodes/examples/tree/main/2025/registry
